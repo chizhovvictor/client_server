@@ -1,0 +1,54 @@
+HTTP-запрос и ответ имеют определенную структуру, они состоят из нескольких частей:
+
+Структура HTTP-запроса:
+
+Строка запроса (Request Line): Эта часть содержит метод запроса (например, GET, POST), URI (Uniform Resource Identifier, идентификатор запрашиваемого ресурса), и версию HTTP протокола. Пример:
+
+GET /index.html HTTP/1.1
+
+Заголовки запроса (Request Headers): Эти заголовки содержат дополнительную информацию о запросе, такую как User-Agent (информация о браузере или клиенте), Host (доменное имя сервера), Accept (поддерживаемые типы контента), и многие другие. Примеры:
+
+Host: www.example.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36
+
+Тело запроса (Request Body): Это необязательная часть, которая содержит данные, передаваемые с запросом. Например, в случае POST-запросов, это могут быть данные формы. Пример:
+
+username=johndoe&password=secret
+
+Структура HTTP-ответа:
+
+Строка состояния (Status Line): Эта часть содержит версию HTTP протокола, код состояния (например, 200 OK, 404 Not Found) и сообщение состояния. Пример:
+
+HTTP/1.1 200 OK
+
+Заголовки ответа (Response Headers): Эти заголовки содержат дополнительную информацию о ответе, такую как Content-Type (тип контента), Content-Length (длина контента), Server (имя веб-сервера), и другие. Примеры:
+
+Content-Type: text/html; charset=UTF-8
+Content-Length: 1234
+Server: Apache/2.4.43 (Unix)
+
+Тело ответа (Response Body): Эта часть содержит собственно данные, которые клиент получает от сервера. Например, это может быть HTML-код веб-страницы, изображение, JSON-данные и так далее.
+
+Пример полного HTTP-запроса:
+
+GET /index.html HTTP/1.1
+Host: www.example.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36
+
+Пример полного HTTP-ответа:
+
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=UTF-8
+Content-Length: 1234
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example Page</title>
+  </head>
+  <body>
+    <h1>Hello, World!</h1>
+  </body>
+</html>
+
+Это базовая структура HTTP-запроса и ответа. Разные методы запроса и коды состояния могут включать дополнительные детали, и заголовки могут варьироваться в зависимости от конкретного запроса и ответа.
