@@ -1,29 +1,31 @@
-NAME = webserv
+CLIENT = client
+SERVER = server
 
-SRCS =	./main.cpp
+SRCS_C =	./client.cpp
+SRCS_S =	./server.cpp
 
-HEADER = ./include/cub3d.h
-
-OBJS = $(SRCS:.cpp=.o)
-
-CPPFLAGS = -Werror -Wextra -Wall -std=c++98
+OBJS_C = $(SRCS_C:.cpp=.o)
+OBJS_S = $(SRCS_S:.cpp=.o)
 CPP = c++
 
-all: $(NAME)
+all: $(CLIENT) $(SERVER)
 
 
 %.o : %.cpp 
-	$(CPP) $(CPPFLAGS) -c $< -o $@
+	$(CPP) -c $< -o $@
 
-$(NAME) : $(OBJS)
-	$(CPP) $(OBJS) -o $(NAME)
+$(CLIENT) : $(OBJS_C)
+	$(CPP) $(OBJS_C) -o $(CLIENT)
+
+$(SERVER) : $(OBJS_S)
+	$(CPP) $(OBJS_S) -o $(SERVER)
 
 
 clean:
-	rm -rf $(OBJS)
+	rm -rf $(OBJS_C) $(OBJS_S)
 
 fclean:
-	rm -rf $(OBJS) $(NAME)
+	rm -rf $(OBJS_C) $(OBJS_S) $(CLIENT) $(SERVER)
 
 re: fclean all
 

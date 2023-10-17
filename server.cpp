@@ -38,7 +38,7 @@ int main(int ac, char **av) {
     /* настраиваем структуру host_addr для использования bind() */
 
     servAddr.sin_family = AF_INET;
-    servAddr.sin_port = htonl(portno);
+    servAddr.sin_port = htons(portno);
     servAddr.sin_addr.s_addr = htonl(INADDR_ANY);
 
     /* Привязка соксета: С помощью функции bind() вы связываете ваш соксет с определенным 
@@ -69,7 +69,7 @@ int main(int ac, char **av) {
 
     /* Функция inet_ntoa используется для преобразования 32-битного IP-адреса, представленного в 
     формате сетевого порядка байт (big-endian), в строковый формат IP-адреса. */
-    std::cout << "Server: got connection from " << inet_ntoa(clientAddr.sin_addr) << "port " << ntohs(clientAddr.sin_port) << std::endl;
+    std::cout << "Server: got connection from " << inet_ntoa(clientAddr.sin_addr) << " port " << ntohs(clientAddr.sin_port) << std::endl;
 
     /* Функция send используется для отправки данных через сокет.  */
     send(newsockfd, "Message was gotten!", 19, 0);
@@ -78,16 +78,20 @@ int main(int ac, char **av) {
     memset(message, 0, MAXSIZE);
 
     /* Обработка полученного сообщения с помощью функции  recv */
-    int bytes_received = recv(newsockfd, message, sizeof(message), 0);
-    if (bytes_received == -1)
-        err("ERROR: reading from socket!", 1);
-    else if (bytes_received == 0)
-        err("The connection was closed by the client", 0);
-    else {
-        message[bytes_received] = '\0';
-        std::cout << "Count of bytes " << bytes_received << ":" << std::endl;
-        std::cout << "Message: " << message << std::endl;
-    }
+    // int bytes_received = recv(newsockfd, message, sizeof(message), 0);
+    // if (bytes_received == -1)
+    //     err("ERROR: reading from socket!", 1);
+    // else if (bytes_received == 0)
+    //     err("The connection was closed by the client", 0);
+    // else {
+    //     message[bytes_received] = '\0';
+    //     std::cout << "Count of bytes " << bytes_received << ":" << std::endl;
+    //     std::cout << "Message: " << message << std::endl;
+    // }
+
+    int n = read(newsockfd, message, MAXSIZE);
+    if (n < 0) err("ERROR reading from socket", 1);
+    printf("Here is the message: %s\n", message);
 
     /* обязательно нужно закрывать сокеты после их использования, чтобы избежать 
     утечек ресурсов. Сокеты - это ресурсы операционной системы, и если вы забудете 
